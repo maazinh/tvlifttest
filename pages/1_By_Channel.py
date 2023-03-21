@@ -102,10 +102,10 @@ else:
 
                 year += 1
             # run Benchmarking function, save output as benchmarkdf and listofchannels
-            currentbrand, benchmarkdf, listofchannels = Benchmarking(table, df1, st.session_state.attributionwindowbychannel)
-
-        # second tab
-        with tab2:
-
-            # plot the benchmarking charts
-            BenchmarkingCharts(currentbrand, listofchannels,table,benchmarkdf,st.session_state.attributionwindowbychannel)
+        #     currentbrand, benchmarkdf, listofchannels = Benchmarking(table, df1, st.session_state.attributionwindowbychannel)
+        #
+        # # second tab
+        # with tab2:
+        #
+        #     # plot the benchmarking charts
+        #     BenchmarkingCharts(currentbrand, listofchannels,table,benchmarkdf,st.session_state.attributionwindowbychannel)

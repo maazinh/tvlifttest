@@ -278,45 +278,45 @@ def Lift(df1, df2, medium, attributionwindow):
 
 # Benchmark any runs into an Excel file - for By Channel page
 @st.cache_data(show_spinner=False)
-def Benchmarking(table, df1, attributionwindowbychannel):
-    # make a copy of the t test results stored in table as table2
-    table2 = table
-    # make new column for attribution window
-    table2["Attribution Window"] = attributionwindowbychannel
-    # make column for brand - the brand the TV data is for
-    table2["Brand"] = df1["brand"][1]
-    currentbrand = df1["brand"][1]
-    # table2 = table2[table2["P-value (%)"] < 10]
-
-    # make hdr a variable that makes it output header if new file otherwise if file already exists then just output data without headers
-    hdr = False if os.path.isfile(
-        'C:/Users/maahaque/OneDrive - Publicis Groupe/Documents/2019/September/Attribution/TV Regression/Benchmarks.csv') else True
-    # export to benchmarks file - APPEND data
-    table2.to_csv(
-        'C:/Users/maahaque/OneDrive - Publicis Groupe/Documents/2019/September/Attribution/TV Regression/Benchmarks.csv',
-        mode='a', header=hdr, index=False)
-
-    # find list of channels for that specific brand
-    listofchannels = table["Channel"].unique()
-    # create list
-    d = {'Channel': listofchannels}
-    # create dataframe with list
-    benchmarkdf = pd.DataFrame(data=d)
-    # import benchmark excel file
-    benchmarkexcel = pd.read_csv(
-        "C:/Users/maahaque/OneDrive - Publicis Groupe/Documents/2019/September/Attribution/TV Regression/Benchmarks.csv")
-    # create new df merging channel list from before with the actual benchmarks so as to get common list
-    benchmarkdf = pd.merge(benchmarkdf, benchmarkexcel, on=['Channel'])
-
-    # filter df for attribution window selected
-    benchmarkdf = benchmarkdf[benchmarkdf["Attribution Window"] == st.session_state.attributionwindowbychannel]
-    # round and drop duplicates
-    benchmarkdf = benchmarkdf.round(2)
-    benchmarkdf = benchmarkdf.drop_duplicates(subset=None,keep="first",inplace=False)
-    # reset index
-    benchmarkdf = benchmarkdf.reset_index(drop=True)
-
-    return currentbrand, benchmarkdf, listofchannels
+# def Benchmarking(table, df1, attributionwindowbychannel):
+#     # make a copy of the t test results stored in table as table2
+#     table2 = table
+#     # make new column for attribution window
+#     table2["Attribution Window"] = attributionwindowbychannel
+#     # make column for brand - the brand the TV data is for
+#     table2["Brand"] = df1["brand"][1]
+#     currentbrand = df1["brand"][1]
+#     # table2 = table2[table2["P-value (%)"] < 10]
+#
+#     # make hdr a variable that makes it output header if new file otherwise if file already exists then just output data without headers
+#     hdr = False if os.path.isfile(
+#         'C:/Users/maahaque/OneDrive - Publicis Groupe/Documents/2019/September/Attribution/TV Regression/Benchmarks.csv') else True
+#     # export to benchmarks file - APPEND data
+#     table2.to_csv(
+#         'C:/Users/maahaque/OneDrive - Publicis Groupe/Documents/2019/September/Attribution/TV Regression/Benchmarks.csv',
+#         mode='a', header=hdr, index=False)
+#
+#     # find list of channels for that specific brand
+#     listofchannels = table["Channel"].unique()
+#     # create list
+#     d = {'Channel': listofchannels}
+#     # create dataframe with list
+#     benchmarkdf = pd.DataFrame(data=d)
+#     # import benchmark excel file
+#     benchmarkexcel = pd.read_csv(
+#         "C:/Users/maahaque/OneDrive - Publicis Groupe/Documents/2019/September/Attribution/TV Regression/Benchmarks.csv")
+#     # create new df merging channel list from before with the actual benchmarks so as to get common list
+#     benchmarkdf = pd.merge(benchmarkdf, benchmarkexcel, on=['Channel'])
+#
+#     # filter df for attribution window selected
+#     benchmarkdf = benchmarkdf[benchmarkdf["Attribution Window"] == st.session_state.attributionwindowbychannel]
+#     # round and drop duplicates
+#     benchmarkdf = benchmarkdf.round(2)
+#     benchmarkdf = benchmarkdf.drop_duplicates(subset=None,keep="first",inplace=False)
+#     # reset index
+#     benchmarkdf = benchmarkdf.reset_index(drop=True)
+#
+#     return currentbrand, benchmarkdf, listofchannels
 
 # Plot charts for benchmarking vs industry - for By Channel page
 def BenchmarkingCharts(currentbrand, listofchannels, table, benchmarkdf, attributionwindowbychannel):
@@ -1201,9 +1201,9 @@ def CalculateLift(df1, df2, medium, attributionwindow):
     do = {'prop': prop, 'beforeAd': beforeAd, 'afterAd': afterAd}
     poop = pd.DataFrame(do)
 
-    if medium == "AL RAI TV":
-        poop.to_csv(
-            'C:/Users/maahaque/OneDrive - Publicis Groupe/Documents/2019/September/Attribution/TV Regression/POOOOOP.csv')
+    # if medium == "AL RAI TV":
+    #     poop.to_csv(
+    #         'C:/Users/maahaque/OneDrive - Publicis Groupe/Documents/2019/September/Attribution/TV Regression/POOOOOP.csv')
     #     prop.to_csv(
     #         'C:/Users/maahaque/OneDrive - Publicis Groupe/Documents/2019/September/Attribution/TV Regression/PROPafter.csv')
     # run t-test and store as results
