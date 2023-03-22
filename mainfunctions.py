@@ -494,7 +494,7 @@ def AllMedium(df1, df2, attributionwindow, dimension):
     # filtered_dfs = Parallel(n_jobs=-1)(
     #     delayed(filter_df)(m) for m in medium)
 
-    table_list = Parallel(n_jobs=-1)(
+    table_list = Parallel(n_jobs=1)(
         delayed(StatsTable)(df1[df1["medium"] == medium[i]], df2, medium[i], attributionwindow, dimension) for i in range(len(medium)))
 
     # table = pd.DataFrame(table_list,
@@ -516,7 +516,7 @@ def StatsTable(df1, df2, medium, attributionwindow, dimension):
     var = dfFiltered[dimension].unique()
 
     # loop through dimension and if it has more than one ad, run CalculateLift2 script
-    table_list = Parallel(n_jobs=-1)(
+    table_list = Parallel(n_jobs=1)(
         delayed(LiftDeepDive)(df1, df2, medium, attributionwindow, i, dimension) for i in var if
         len(dfFiltered[dfFiltered[dimension] == i].index) > 1)
 
@@ -912,7 +912,7 @@ def OptimiseBudgets(budget, df_dict, df, form):
 
 def ParallelMerge(df_results):
     x = ["Spot Length", "Ad Language", "TV Program Name", "Spot Hour"]
-    table_list = Parallel(n_jobs=-1)(
+    table_list = Parallel(n_jobs=1)(
         delayed(MergingTables)(df_results, x[j]) for j in
         range(len(x)))
 
