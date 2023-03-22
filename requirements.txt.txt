@@ -1,0 +1,7 @@
+xlsxwriter==3.0.9
+pyxlsb==1.0.10
+streamlit-extras==0.2.0
+joblib==1.2.0
+scipy==1.9.3
+plotly==5.11.0
+pingouin==0.5.3
