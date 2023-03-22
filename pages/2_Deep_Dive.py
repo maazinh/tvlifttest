@@ -46,7 +46,7 @@ else:
         # align right but don't think it works
         def right_align(s, props='text-align: right;'):
             return props
-
+        print("MADE IT THIS FAR")
         t1 = AllMedium(df1, df2, st.session_state.attributionwindowbychannel, "space")
         t2 = AllMedium(df1, df2, st.session_state.attributionwindowbychannel, "ad_language")
         t3 = AllMedium(df1, df2, st.session_state.attributionwindowbychannel, "tv_program_name")

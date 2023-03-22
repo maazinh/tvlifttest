@@ -493,7 +493,7 @@ def AllMedium(df1, df2, attributionwindow, dimension):
     #
     # filtered_dfs = Parallel(n_jobs=-1)(
     #     delayed(filter_df)(m) for m in medium)
-
+    print("before parallel function")
     table_list = Parallel(n_jobs=1)(
         delayed(StatsTable)(df1[df1["medium"] == medium[i]], df2, medium[i], attributionwindow, dimension) for i in range(len(medium)))
 
@@ -514,7 +514,7 @@ def StatsTable(df1, df2, medium, attributionwindow, dimension):
     # dfFiltered is df filtered for specific medium, then list of unique variables for that specific dimension ie if Spot Hour then 07,08,09 etc
     dfFiltered = df1
     var = dfFiltered[dimension].unique()
-
+    print("before stats table table list")
     # loop through dimension and if it has more than one ad, run CalculateLift2 script
     table_list = Parallel(n_jobs=1)(
         delayed(LiftDeepDive)(df1, df2, medium, attributionwindow, i, dimension) for i in var if
@@ -531,7 +531,7 @@ def StatsTable(df1, df2, medium, attributionwindow, dimension):
 # Lift function for Deep Dive page for table by metrics
 @st.cache_data(show_spinner="Running intense calculations - can take a couple of minutes")
 def LiftDeepDive(df1, df2, medium, attributionwindow, i, dimension):
-
+    print("made it to liftdeepdive")
     # create new copy of tv data by filtering for medium selected
     dfFiltered = df1[df1[dimension] == i]
     # sort
@@ -566,7 +566,7 @@ def LiftDeepDive(df1, df2, medium, attributionwindow, i, dimension):
     joineddata.loc[joineddata['afterAd'] == 0, 'prop'] = 0
 
     results = pg.ttest(joineddata["prop"], 0.0, paired=False, alternative='greater', confidence=0.90)
-    st.write(results)
+    #st.write(results)
 
     # extract pvalue, confidence interval from t-test - ALL ALREADY CONVERTED TO PERCENTAGE
     # pvalue = float(round(results['p-val']*100, 2).to_string(index=False))
